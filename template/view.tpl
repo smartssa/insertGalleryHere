@@ -1,15 +1,15 @@
 <?php
 $view = <<< EOT
-<div id="crumbs">
+<div id="ighCrumbs">
 {$ighCrumbs}
 </div>
-<div id="prev">
+<div id="ighPrev">
 {$ighImage_prev}
 </div>
-<div id="image">
+<div id="ighImage">
 {$ighImage_full}
 </div>
-<div id="next">
+<div id="ighNext">
 {$ighImage_next}
 </div>
 EOT;

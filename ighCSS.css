@@ -1,0 +1,21 @@
+#ighFolders {
+	position: absolute;
+	left: 10px;
+}
+
+#ighThumbs ul {
+
+}
+
+#ighThumbs li {
+	display: inline;
+}
+
+#ighImage {
+
+}
+
+#ighCrumbs li {
+	display: inline;
+	padding-right: 5px;
+}

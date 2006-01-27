@@ -48,6 +48,6 @@ $ighPageHeader = "myStandAloneIGH";
 	ighThumb 	- thumbnails
 	ighImage	- full images
 	ighDirectory	- directory listing */
-// $ighCustomCSS = "myCSS.css";
+$ighCSS = "@import \"/ighCSS.css\";";
 
 ?>

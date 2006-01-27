@@ -1,12 +1,12 @@
 <?php
 $browse = <<< EOT
-<div id="crumbs">
+<div id="ighCrumbs">
 {$ighCrumbs}
 </div>
-<div id="folders">
+<div id="ighFolders">
 {$ighFolders}
 </div>
-<div id="thumbs">
+<div id="ighThumbs">
 {$ighThumbs}
 </div>
 EOT;

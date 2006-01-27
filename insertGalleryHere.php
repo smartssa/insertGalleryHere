@@ -36,17 +36,24 @@ if ($action == "thumbnail" || $action == "image") {
 	$filetype = mime_content_type($filename);
 }
 
+/* My Classes */
+require_once "src/class-folder.php";
+require_once "src/class-image.php";
+
 /* 4 output modes */
 switch ($action) {
 /* browser */
 	/* uri: browse/dir/ */
 	default:
 	case "browse":
-		require_once "src/class-folder.php";
+		if ($param != "")
+			$param .= "/";
+
 		$Folders = new Folders($param, $ighLocalImages);
 
 		$ighFolders = $Folders->listFolders();
 		$ighThumbs = $Folders->listThumbs();
+		$ighCrumbs = $Folders->listCrumbs();
 
 		/* browse wants $ighFolders, $ighThumbs */
 		require_once "template/browse.tpl";
@@ -57,10 +64,16 @@ switch ($action) {
 	/* uri: view/imagename/ */
 	case "view":
 		if ($param == "_")
+			$param = "";
+		else
 			$param .= "/";
 
-		require_once "src/class-image.php";
-		$ighImage_full = "<img src=\"" . $ighImage . $param . $extra . "\"/>";
+		$Image = new Image($param, $ighLocalImages, $extra);
+
+		$ighImage_next = $Image->getNextImageHTML();
+		$ighImage_full = $Image->getImageHTML();
+		$ighImage_prev = $Image->getPrevImageHTML();
+		$ighCrumbs = $Image->listCrumbs();
 		require_once "template/view.tpl";
 		$ighBody .= $view;
 	break;

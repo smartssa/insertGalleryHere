@@ -18,8 +18,6 @@ class Folders {
 	function __construct($start, $root) {
 		$this->activeFolder = $root . $start;
 		$this->start = $start;
-		if ($start)
-			$this->activeFolder = $this->activeFolder . "/";
 		$this->scanFolder();
 	}
 
@@ -46,11 +44,11 @@ class Folders {
 		}
 	}
 
-	function getFolders() {
+	public function getFolders() {
 		return $this->folders;
 	}
 
-	function listFolders() {
+	public function listFolders() {
 		global $ighBrowse;
 		$fl = "<ul>";
 		foreach ($this->folders as $key => $folder) {
@@ -61,17 +59,17 @@ class Folders {
 		return $fl;
 	}
 
-	function getThumbs() {
+	public function getThumbs() {
 		return $this->thumbs;
 	}
 
-	function listThumbs() {
+	public function listThumbs() {
 		global $ighThumb, $ighView, $ighThumbHeight, $ighThumbWidth;
 		if ($this->start == "") {
 			// this underscore signifies the 'root'
 			$folder = "_/";
 		} else {
-			$folder = $this->start."/";
+			$folder = $this->start;
 		}
 		$fl = "<ul>";
 		// filler up with thumbs
@@ -83,6 +81,20 @@ class Folders {
 		}
 		$fl .= "</ul>";
 		return $fl;
-	}	
+	}
+
+	public function listCrumbs() {
+		global $ighBrowse;
+		// return an ul of the crumb fun
+		$cr = "<ul>";
+		$cr .= "<li><a href=\"" . $ighBrowse . "\">Start</a></li>";
+		$folder = explode("/",$this->start);
+		foreach ($folder as $key=>$data) {
+			if ($data != "")
+			$cr .= "<li><a href=\"". $ighBrowse . $data . "/\">" . $data . "</a></li>";
+		}
+		$cr .= "</ul>";
+		return $cr;
+	}
 }
 ?>
