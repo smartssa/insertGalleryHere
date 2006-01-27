@@ -3,9 +3,9 @@ RewriteEngine On
 RewriteCond %{THE_REQUEST} \ /gallery/([^?]+)(\?.|\ .)
 RewriteCond %{REQUEST_FILENAME} !insertGalleryHere\.php
 # Change this to the real location if necessary.
-RewriteRule .   /insertGalleryHere.php?request=%1   [QSA,L]
+RewriteRule .   /insertGalleryHere.php?ighRequest=%1   [QSA,L]
 
 # This is default, it'll break if there's nothing beyond /gallery/
 RewriteCond %{THE_REQUEST} \ /gallery/
 RewriteCond %{REQUEST_FILENAME} !insertGalleryHere\.php
-RewriteRule .   /insertGalleryHere.php?request=browse   [QSA,L]
+RewriteRule .   /insertGalleryHere.php?ighRequest=browse   [QSA,L]
