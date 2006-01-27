@@ -21,10 +21,22 @@ $ighThumbHeight	= "90";
 $ighHome = "/"; 
 /* this is where everything is processed (embedded or not)
 	if you do not have mod_rewrite in use set it to the full location. */
-/* using mod_rewrite: */
-$ighLanding = "/gallery/";
-/* not using mod_rewrite: */
-// $ighLanding = "/insertGalleryHere.php?request="
+if ($insertGalleryHereEmbed) {
+	// no mod_rewrite if we're embeded! (yet)
+	// TODO: preserve an existing QUERY_STRING
+	$ighBrowse 	= "?ighRequest=browse/";
+	$ighView 	= "?ighRequest=view/";
+	$ighImage 	= "/insertGalleryHere.php?ighRequest=image/";
+	$ighThumb 	= "/insertGalleryHere.php?ighRequest=thumbnail/";
+} else {  // standalone operation...
+	/* not using mod_rewrite: */
+	/* -- copy from above -- :) */
+	/* using mod_rewrite: */
+	$ighBrowse	= "/gallery/browse/";
+	$ighView 	= "/gallery/view/";
+	$ighImage 	= "/gallery/image/";
+	$ighThumb 	= "/gallery/thumbnail/";
+}
 
 /* output variables (for standalone) */
 $ighPageTitle = "My insertGalleryHere!";

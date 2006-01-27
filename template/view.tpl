@@ -7,7 +7,7 @@ $view = <<< EOT
 {$ighImage_prev}
 </div>
 <div id="image">
-{$ighImage}
+{$ighImage_full}
 </div>
 <div id="next">
 {$ighImage_next}

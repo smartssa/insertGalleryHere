@@ -17,6 +17,7 @@ class Folders {
 
 	function __construct($start, $root) {
 		$this->activeFolder = $root . $start;
+		$this->start = $start;
 		if ($start)
 			$this->activeFolder = $this->activeFolder . "/";
 		$this->scanFolder();
@@ -50,10 +51,10 @@ class Folders {
 	}
 
 	function listFolders() {
-		global $ighLanding;
+		global $ighBrowse;
 		$fl = "<ul>";
 		foreach ($this->folders as $key => $folder) {
-			$fl .= "<li><a href=\"". $ighLanding ."browse/". $folder . "/\">" . $folder. "</a></li>";
+			$fl .= "<li><a href=\"". $ighBrowse . $folder . "/\">" . $folder. "</a></li>";
 		}
 		// fill up the unordered list.
 		$fl .= "</ul>";
@@ -65,13 +66,19 @@ class Folders {
 	}
 
 	function listThumbs() {
-		global $ighLanding, $ighThumbHeight, $ighThumbWidth;
+		global $ighThumb, $ighView, $ighThumbHeight, $ighThumbWidth;
+		if ($this->start == "") {
+			// this underscore signifies the 'root'
+			$folder = "_/";
+		} else {
+			$folder = $this->start."/";
+		}
 		$fl = "<ul>";
 		// filler up with thumbs
 		foreach ($this->thumbs as $key => $thumb) {
-			$fl .= "<li><a href=\"" . $ighLanding . "view/" . $thumb . "\"><img src=\"" 
-				. $ighLanding . "image/" . $thumb 
-				. "/\" height=\"" . $ighThumbHeight . "\" width=\"" 
+			$fl .= "<li><a href=\"" . $ighView . $folder . $thumb . "\">
+				<img src=\"" . $ighThumb . $folder . $thumb 
+				. "\" height=\"" . $ighThumbHeight . "\" width=\"" 
 				. $ighThumbWidth . "\" alt=\"".$thumb."\"/></a></li>";
 		}
 		$fl .= "</ul>";
