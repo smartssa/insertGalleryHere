@@ -13,6 +13,10 @@ $ighWebUrl = "images/";
 // This must be writable by your web server.
 $ighCache = "cache/";
 
+// Thumbnail stuff
+$ighThumbWidth 	= "120";
+$ighThumbHeight	= "90";
+
 // this can be any url; if you are embedding set it to where it's embedded.
 $ighHome = "/"; 
 /* this is where everything is processed (embedded or not)

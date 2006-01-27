@@ -17,6 +17,8 @@ class Folders {
 
 	function __construct($start, $root) {
 		$this->activeFolder = $root . $start;
+		if ($start)
+			$this->activeFolder = $this->activeFolder . "/";
 		$this->scanFolder();
 	}
 
@@ -48,9 +50,10 @@ class Folders {
 	}
 
 	function listFolders() {
+		global $ighLanding;
 		$fl = "<ul>";
 		foreach ($this->folders as $key => $folder) {
-			$fl .= "<li>" . $folder. "</li>";
+			$fl .= "<li><a href=\"". $ighLanding ."browse/". $folder . "/\">" . $folder. "</a></li>";
 		}
 		// fill up the unordered list.
 		$fl .= "</ul>";
@@ -62,10 +65,14 @@ class Folders {
 	}
 
 	function listThumbs() {
+		global $ighLanding, $ighThumbHeight, $ighThumbWidth;
 		$fl = "<ul>";
 		// filler up with thumbs
 		foreach ($this->thumbs as $key => $thumb) {
-			$fl .= "<li>" . $thumb . "</li>";
+			$fl .= "<li><a href=\"" . $ighLanding . "view/" . $thumb . "\"><img src=\"" 
+				. $ighLanding . "image/" . $thumb 
+				. "/\" height=\"" . $ighThumbHeight . "\" width=\"" 
+				. $ighThumbWidth . "\" alt=\"".$thumb."\"/></a></li>";
 		}
 		$fl .= "</ul>";
 		return $fl;

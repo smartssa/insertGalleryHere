@@ -1,5 +1,8 @@
 <?php
 $view = <<< EOT
+<div id="crumbs">
+{$ighCrumbs}
+</div>
 <div id="prev">
 {$ighImage_prev}
 </div>
