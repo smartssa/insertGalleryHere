@@ -11,11 +11,16 @@ $ighVersion = "0.1";
 $ighLocalImages = "/var/www/x/igh/photos/";
 $ighWebUrl = "images/";
 // This must be writable by your web server.
-$ighCache = "cache/";
+$ighCacheThumbs = "/var/www/x/igh/cache/thumb/";
+$ighCacheResize = "/var/www/x/igh/cache/resize/";
 
 // Thumbnail stuff
 $ighThumbWidth 	= "120";
 $ighThumbHeight	= "90";
+
+// Resize stuff
+$ighMaxWidth 	= "600";
+$ighMaxHeight 	= "400";
 
 // this can be any url; if you are embedding set it to where it's embedded.
 $ighHome = "/"; 
