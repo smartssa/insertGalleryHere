@@ -28,12 +28,18 @@ switch ($action) {
 	default:
 	case "browse":
 		require_once "src/class-folder.php";
+
+		require_once "template/browse.tpl";
+		$ighBody .= $browse;
 	break;
 
 /* single image */
 	/* uri: view/imagename/ */
 	case "view":
 		require_once "src/class-image.php";
+
+		require_once "template/view.tpl";
+		$ighBody .= $view;
 	break;
 
 /* thumbnail image */
@@ -49,10 +55,12 @@ switch ($action) {
 }
 /* Final output */
 if ($insertGalleryHereEmbed) { // wrap up the output if we're not embedded
-	print "<p>Embeded!</p>";
+	$ighOutput = "<p>Embeded!</p>";
 } else { // not embedded, standalone output.
-	print "<p>Standalone!</p>";
+	require_once "template/wrapper.tpl";
+	$ighOutput = $body;
 }
 
+print $ighOutput;
 /* end */
 ?>
