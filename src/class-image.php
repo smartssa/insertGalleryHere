@@ -47,14 +47,12 @@ class Image extends Folders {
 	function createThumb() {
 		global $ighCacheThumbs, $ighThumbHeight, $ighThumbWidth;
 		// create the thumbnail
-		print "make thumb!";
 		imageResize($this->activeImage, $ighCacheThumbs.$this->imageThumb, $ighThumbHeight, $ighThumbWidth, TRUE);
 	}
 
 	function createResize() {
 		global $ighCacheResize, $ighMaxWidth, $ighMaxHeight;
 		// create a smaller resized image, if required.
-		print "make resize!";
 		imageResize($this->activeImage, $ighCacheResize.$this->imageThumb, $ighMaxHeight, $ighMaxWidth, FALSE);
 	}
 
@@ -81,7 +79,7 @@ class Image extends Folders {
 			// if resize is out of date
 			if (filectime($this->activeImage) > filectime($ighCacheResize . $this->imageThumb))
 				$this->createResize();
-		} else {
+		} elseif (!file_exists($ighCacheResize . $this->imageThumb) ) {
 			if ($this->imageHeight > $ighMaxHeight || $this->imageWidth > $ighMaxWidth)
 				$this->createResize();
 		}

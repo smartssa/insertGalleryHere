@@ -41,6 +41,8 @@ class Folders {
 				}
 				closedir($dir_handle);
 			}
+			sort($this->folders);
+			sort($this->thumbs);
 		}
 	}
 
@@ -76,8 +78,7 @@ class Folders {
 		foreach ($this->thumbs as $key => $thumb) {
 			$fl .= "<li><a href=\"" . $ighView . $folder . $thumb . "\">
 				<img src=\"" . $ighThumb . $folder . $thumb 
-				. "\" height=\"" . $ighThumbHeight . "\" width=\"" 
-				. $ighThumbWidth . "\" alt=\"".$thumb."\"/></a></li>";
+				. "\" alt=\"".$thumb."\"/></a></li>";
 		}
 		$fl .= "</ul>";
 		return $fl;

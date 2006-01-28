@@ -11,12 +11,12 @@ $ighVersion = "0.1";
 $ighLocalImages = "/var/www/x/igh/photos/";
 $ighWebUrl = "images/";
 // This must be writable by your web server.
-$ighCacheThumbs = "/var/www/x/igh/cache/thumb/";
+$ighCacheThumbs = "/var/www/x/igh/cache/thumbs/";
 $ighCacheResize = "/var/www/x/igh/cache/resize/";
 
-// Thumbnail stuff
+// Thumbnail stuff -- these are boundaries
 $ighThumbWidth 	= "120";
-$ighThumbHeight	= "90";
+$ighThumbHeight	= "120";
 
 // Resize stuff
 $ighMaxWidth 	= "600";

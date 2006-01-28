@@ -26,19 +26,23 @@ if ($_GET['ighRequest'] == "browse") {
 	list ($action, $param, $extra) = explode ("/", $_GET['ighRequest'], 3);
 }
 
+/* My Classes */
+require_once "src/class-folder.php";
+require_once "src/class-image.php";
+
 if ($action == "thumbnail" || $action == "image") {
 	if ($param == "_") {
-		$param = "/";
+		$param = "";
 	} else {
 		$param = $param . "/";
 	}
 	$filename = $ighLocalImages . $param . $extra;
+	$thumb = $ighCacheThumbs . md5($filename) . ".png";
+	$resize = $ighCacheResize . md5($filename) . ".png";
 	$filetype = mime_content_type($filename);
-}
 
-/* My Classes */
-require_once "src/class-folder.php";
-require_once "src/class-image.php";
+	$Image = new Image($param, $ighLocalImages, $extra);
+}
 
 /* 4 output modes */
 switch ($action) {
@@ -81,7 +85,13 @@ switch ($action) {
 /* thumbnail image */
 	/* uri: thumbnail/imagename/ */
 	case "thumbnail":
-//	break;
+		header("Content-Type: image/png");
+		header("Content-Length: " . filesize($thumb));
+		$fp = fopen($thumb, "rb");
+		fpassthru($fp);
+		fclose($fp);
+		exit();
+	break;
 
 /* the actual image */
 	/* uri: image/filename.jpg/gif/png */
