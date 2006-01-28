@@ -51,4 +51,14 @@ function imageResize($file, $dest, $height, $width, $thumb = FALSE) {
 	imagedestroy($base_img);
 	imagedestroy($thumb_img);
 }
+
+function dateCompare($dateModified, $dateToCompare) {
+	// compare dates in format: Fri, 27 Jan 2006 05:21:35 GMT 
+	
+	// these dates are expected in unixtimestamp
+	if ($dateModified > $dateToCompare)
+		return true;
+	else
+		return false;
+}
 ?>

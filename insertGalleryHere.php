@@ -31,6 +31,10 @@ require_once "src/class-folder.php";
 require_once "src/class-image.php";
 
 if ($action == "thumbnail" || $action == "image") {
+	$headers = apache_request_headers();
+	if ($headers['If-Modified-Since'] == "")
+		$headers['If-Modified-Since'] = gmdate("D, d M Y H:i:s", time()) . " GMT";
+
 	if ($param == "_") {
 		$param = "";
 	} else {
@@ -85,22 +89,32 @@ switch ($action) {
 /* thumbnail image */
 	/* uri: thumbnail/imagename/ */
 	case "thumbnail":
-		header("Content-Type: image/png");
-		header("Content-Length: " . filesize($thumb));
-		$fp = fopen($thumb, "rb");
-		fpassthru($fp);
-		fclose($fp);
+		if (dateCompare(strtotime($headers['If-Modified-Since']), filemtime($thumb))) {
+			header("Last-Modified: " . gmdate("D, d M Y H:i:s", filemtime($thumb)) . " GMT");
+			header("Content-Type: image/png");
+			header("Content-Length: " . filesize($thumb));
+			$fp = fopen($thumb, "rb");
+			fpassthru($fp);
+			fclose($fp);
+		} else {
+			header("HTTP/1.0 304 Not Modified");
+		}
 		exit();
 	break;
 
 /* the actual image */
 	/* uri: image/filename.jpg/gif/png */
 	case "image":
-		header("Content-Type: " . $filetype);
-		header("Content-Length: " . filesize($filename));
-		$fp = fopen($filename, "rb");
-		fpassthru($fp);
-		fclose($fp);
+		if (dateCompare(strtotime($headers['If-Modified-Since']), filemtime($filename))) {
+			header("Last-Modified: " . gmdate("D, d M Y H:i:s", filemtime($filename)) . " GMT");
+			header("Content-Type: " . $filetype);
+			header("Content-Length: " . filesize($filename));
+			$fp = fopen($filename, "rb");
+			fpassthru($fp);
+			fclose($fp);
+		} else {
+			header("HTTP/1.0 304 Not Modified");
+		}
 		exit();
 	break;
 
