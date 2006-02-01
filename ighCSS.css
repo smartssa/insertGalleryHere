@@ -11,10 +11,27 @@
 	display: inline;
 }
 
-#ighImage {
-
+#ighThumbs img {
+	border: 1px solid black;
+	padding: 3px;
 }
 
+#ighImage {
+	margin-left: 15%;
+}
+
+#ighImage img {
+	border: 1px solid black;
+	padding: 3px;
+}
+
+#ighPrev {
+	float: left;
+}
+
+#ighNext {
+	float: right;
+}
 #ighCrumbs li {
 	display: inline;
 	padding-right: 5px;

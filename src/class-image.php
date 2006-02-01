@@ -13,14 +13,16 @@ class Image extends Folders {
 	public $imageType;	// the type of image
 	public $imageFilename;	// just the file
 	public $imageThumb;	// thumbnail hash (for thumb and resize)
+	public $imageStart;	// start path
 
 	function __construct($start, $LocalPath, $extra) {
 		// Construct!
 		parent::__construct($start, $LocalPath);
 		$this->activeImage = $LocalPath . $start . $extra;
-
 		if ($start == "")
 			$start = "_/";
+
+		$this->imageStart = $start;
 
 		$this->imageFilename = basename($this->activeImage);
 		$this->imageUrl = $start . $extra;
@@ -94,10 +96,22 @@ class Image extends Folders {
 	}
 
 	public function getNextImageHTML() {
+		global $ighView, $ighThumb;
+		$key = array_search($this->imageFilename, $this->thumbs);
+		$img = "<a href=\"" . $ighView . $this->imageStart . $this->thumbs[$key+1] . "\">";
+		$img .= "<img src=\"" .$ighThumb . $this->imageStart . $this->thumbs[$key+1] . "\"
+			alt=\"".$this->thumbs[$key+1]."\"/>";
+		$img .= "</a>";
 		return $img;
 	}
 
 	public function getPrevImageHTML() {
+		global $ighView, $ighThumb;
+		$key = array_search($this->imageFilename, $this->thumbs);
+		$img = "<a href=\"" . $ighView . $this->imageStart . $this->thumbs[$key-1] . "\">";
+		$img .= "<img src=\"" .$ighThumb . $this->imageStart . $this->thumbs[$key-1] . "\"
+			alt=\"".$this->thumbs[$key-1]."\"/>";
+		$img .= "</a>";
 		return $img;
 	}
 }

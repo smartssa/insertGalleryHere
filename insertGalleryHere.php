@@ -33,7 +33,7 @@ require_once "src/class-image.php";
 if ($action == "thumbnail" || $action == "image") {
 	$headers = apache_request_headers();
 	if ($headers['If-Modified-Since'] == "") // set this date in the past to force reloads properly
-		$headers['If-Modified-Since'] = gmdate("D, d M Y H:i:s", time()-3600) . " GMT";
+		$headers['If-Modified-Since'] = gmdate("D, d M Y H:i:s", 0) . " GMT";
 
 	if ($param == "_") {
 		$param = "";
@@ -81,6 +81,7 @@ switch ($action) {
 		$ighImage_next = $Image->getNextImageHTML();
 		$ighImage_full = $Image->getImageHTML();
 		$ighImage_prev = $Image->getPrevImageHTML();
+		$ighFolders = $Image->listFolders();
 		$ighCrumbs = $Image->listCrumbs();
 		require_once "template/view.tpl";
 		$ighBody .= $view;
