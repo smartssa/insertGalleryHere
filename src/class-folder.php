@@ -16,7 +16,7 @@ class Folders {
 	public $ignoreFiles = array('.', '..', '.svn');
 
 	function __construct($start, $root) {
-		$this->activeFolder = $root . $start;
+		$this->activeFolder = urldecode($root . $start);
 		$this->start = $start;
 		$this->scanFolder();
 	}

@@ -17,12 +17,17 @@ class Image extends Folders {
 
 	function __construct($start, $LocalPath, $extra) {
 		// Construct!
-		parent::__construct($start, $LocalPath);
+		if ($start == "") {
+			parent::__construct("/", $LocalPath);
+			$this->imageStart = "_/";
+		} else {
+			$full = urldecode($start . (dirname($extra) == "." ? "" : dirname($extra)."/"));
+			parent::__construct($full, $LocalPath);
+			$this->imageStart = $full;
+		}
 		$this->activeImage = $LocalPath . $start . $extra;
 		if ($start == "")
 			$start = "_/";
-
-		$this->imageStart = $start;
 
 		$this->imageFilename = basename($this->activeImage);
 		$this->imageUrl = $start . $extra;
