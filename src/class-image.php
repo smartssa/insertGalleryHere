@@ -24,7 +24,7 @@ class Image extends Folders {
 
 		$this->imageFilename = basename($this->activeImage);
 		$this->imageUrl = $start . $extra;
-		$this->imageThumb = md5($this->activeImage) . ".png"; // all thumbnails will be png
+		$this->imageThumb = md5($this->activeImage); // all thumbnails will be jpeg
 		$this->loadDetails();
 		$this->checkThumb();
 		$this->checkResize();

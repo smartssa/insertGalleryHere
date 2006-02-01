@@ -32,8 +32,8 @@ require_once "src/class-image.php";
 
 if ($action == "thumbnail" || $action == "image") {
 	$headers = apache_request_headers();
-	if ($headers['If-Modified-Since'] == "")
-		$headers['If-Modified-Since'] = gmdate("D, d M Y H:i:s", time()) . " GMT";
+	if ($headers['If-Modified-Since'] == "") // set this date in the past to force reloads properly
+		$headers['If-Modified-Since'] = gmdate("D, d M Y H:i:s", time()-3600) . " GMT";
 
 	if ($param == "_") {
 		$param = "";
@@ -41,8 +41,8 @@ if ($action == "thumbnail" || $action == "image") {
 		$param = $param . "/";
 	}
 	$filename = $ighLocalImages . $param . $extra;
-	$thumb = $ighCacheThumbs . md5($filename) . ".png";
-	$resize = $ighCacheResize . md5($filename) . ".png";
+	$thumb = $ighCacheThumbs . md5($filename);
+	$resize = $ighCacheResize . md5($filename);
 	$filetype = mime_content_type($filename);
 
 	$Image = new Image($param, $ighLocalImages, $extra);
