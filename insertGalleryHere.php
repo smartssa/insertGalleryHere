@@ -57,7 +57,7 @@ switch ($action) {
 		if ($param != "")
 			$param .= "/";
 
-		$Folders = new Folders($param, $ighLocalImages);
+		$Folders = new Folders($param . $extra, $ighLocalImages);
 
 		$ighFolders = $Folders->listFolders();
 		$ighThumbs = $Folders->listThumbs();

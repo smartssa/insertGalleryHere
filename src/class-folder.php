@@ -2,8 +2,8 @@
 /*
 	class-folder.php
 	gather up a listing of the current folder
-	spew out an unordered list of sub folders
-	spew out an unordered list of thumbnails for
+	spew out an ordered list of sub folders
+	spew out an ordered list of thumbnails for
 	images within the current folder.
 */
 
@@ -54,7 +54,8 @@ class Folders {
 		global $ighBrowse;
 		$fl = "<ul>";
 		foreach ($this->folders as $key => $folder) {
-			$fl .= "<li><a href=\"". $ighBrowse . $folder . "/\">" . $folder. "</a></li>";
+			$fl .= "<li><a href=\"". $ighBrowse . $this->start . 
+				$folder . "/\">" . $folder. "</a></li>";
 		}
 		// fill up the unordered list.
 		$fl .= "</ul>";
@@ -90,9 +91,12 @@ class Folders {
 		$cr = "<ul>";
 		$cr .= "<li><a href=\"" . $ighBrowse . "\">Start</a></li>";
 		$folder = explode("/",$this->start);
+		$previous = "";
 		foreach ($folder as $key=>$data) {
-			if ($data != "")
-			$cr .= "<li><a href=\"". $ighBrowse . $data . "/\">" . $data . "</a></li>";
+			if ($data != "") {
+			$cr .= "<li><a href=\"". $ighBrowse .$previous. $data . "/\">" . $data . "</a></li>";
+			$previous .= $data ."/";
+			}
 		}
 		$cr .= "</ul>";
 		return $cr;
