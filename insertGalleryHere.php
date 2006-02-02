@@ -1,7 +1,7 @@
 <?php
 /*
 	insertGalleryHere (IGH)
-	This is Free.
+	This is Free.  If you like it, say thanks.
 
 	The purpose of this is to have a pluggable or standalone gallery
 	with thumbnails and some light browsing.
@@ -9,14 +9,14 @@
 	Portions by Niv Shah, reworked by Darryl Clarke
 	http://niv.elscorcho.org/	http://darrylclarke.com/
 
-	requires: apache's mod_rewrite, php's mime-magic module
+	requires: php5, apache's mod_rewrite, php's mime-magic module
 
  	insertGalleryHere.php is the _only_ entry point for this 
-	script all other files will just die. 				
+	script all other files will just die.
 */
 
-require_once "src/variables.php";
-require_once "src/functions.php";
+require_once "src/ighVariables.php";
+require_once "src/ighFunctions.php";
 
 /* Process $_GET['ighRequest'] */
 if ($_GET['ighRequest'] == "browse") {
@@ -27,8 +27,8 @@ if ($_GET['ighRequest'] == "browse") {
 }
 
 /* My Classes */
-require_once "src/class-folder.php";
-require_once "src/class-image.php";
+require_once "src/class-ighFolder.php";
+require_once "src/class-ighImage.php";
 
 if ($action == "thumbnail" || $action == "image") {
 	$headers = apache_request_headers();
@@ -64,7 +64,7 @@ switch ($action) {
 		$ighCrumbs = $Folders->listCrumbs();
 
 		/* browse wants $ighFolders, $ighThumbs */
-		require_once "template/browse.tpl";
+		require_once "template/ighBrowse.tpl";
 		$ighBody .= $browse;
 	break;
 
@@ -83,7 +83,7 @@ switch ($action) {
 		$ighImage_prev = $Image->getPrevImageHTML();
 		$ighFolders = $Image->listFolders();
 		$ighCrumbs = $Image->listCrumbs();
-		require_once "template/view.tpl";
+		require_once "template/ighView.tpl";
 		$ighBody .= $view;
 	break;
 
@@ -124,7 +124,7 @@ switch ($action) {
 if ($insertGalleryHereEmbed) { // wrap up the output if we're not embedded
 	$ighOutput = $ighBody;
 } else { // not embedded, standalone output.
-	require_once "template/wrapper.tpl";
+	require_once "template/ighWrapper.tpl";
 	$ighOutput = $body;
 }
 

@@ -6,6 +6,7 @@
 <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
 <style type="text/css" title="Colours" media="all">
 	@import "master.css";
+	@import "ighCSS.css";
 </style>
 <title>IGH Embedded Sample</title>
 </head>
@@ -27,6 +28,7 @@
 $insertGalleryHereEmbed = TRUE;
 require_once "insertGalleryHere.php";
 
+/* That's all there is to that */
 ?>
 
 	</div>
