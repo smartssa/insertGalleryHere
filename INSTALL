@@ -1,0 +1,58 @@
+Installation Instructions for insertGalleryHere
+===============================================
+
+1. Unpack with your favoriate tar application.
+
+	$ tar xfv insertGalleryHere-0.1.tar.gz
+	
+2. Move the files to where you want them.
+
+	the directory 'src', 'template', 'photos', 'cache' do not need to
+	be in the web root of your application.  'src' and 'template' do
+	need to be in your php's include_path variable though.
+	
+3. Edit 'src/ighVariables.php' and set your paths accordingly.
+
+	the 'cache' directory must be writable by your webserver.
+	$ chmod a+rw cache/
+	
+4. Populate your 'photos' folder with images.
+
+5. Hit the url where you set put insertGalleryHere.php and sit
+    back in amazement.
+    
+    
+Embedding
+=========
+To embed insertGalleryHere simply cut and paste this code into your existing php:
+<?php
+/* Demo for Wrapper/3rd Party include */
+
+$insertGalleryHereEmbed = TRUE;
+require_once "insertGalleryHere.php";
+
+/* That's all there is to that */
+?>
+Remember that insertGalleryHere.php needs to be in a valid include path.
+
+.htaccess Fun
+=============
+
+By default insertGalleryHere's .htaccess is disabled.
+
+To enable it, you need a .htaccess file that says something like this:
+
+RewriteEngine On
+# Expects your galler to be on a virtual /gallery/ url.
+RewriteCond %{THE_REQUEST} \ /gallery/([^?]+)(\?.|\ .)
+RewriteCond %{REQUEST_FILENAME} !insertGalleryHere\.php
+# Change this to the real location if necessary.
+RewriteRule .   /insertGalleryHere.php?ighRequest=%1   [QSA,L]
+
+# This is default, it'll break if there's nothing beyond /gallery/
+RewriteCond %{THE_REQUEST} \ /gallery/
+RewriteCond %{REQUEST_FILENAME} !insertGalleryHere\.php
+RewriteRule .   /insertGalleryHere.php?ighRequest=browse   [QSA,L]
+
+
+And then edit the ighVariables.php file to reflect this being enabled.

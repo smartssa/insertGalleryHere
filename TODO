@@ -1,0 +1,25 @@
+SHITLIST:
+- make sure all src/*.php files just die (or redirect?)
+- Comment this code.
+- Security Audit
+	- make sure I can't arbitrarily get files.
+	
+ENHANCMENTS:
+- HTTP_REFERER checking
+- After playing around with it, the current url structure isn't gonna
+	be so hot.  I think every url needs to be [action]/_/full/path/to/image.jpg
+	where the _ can be a subaction if necessary.
+- Paging for directories with lots of images
+- Debugging/Error output
+- Force resized images to go out, rather than fullsized
+- Allow viewability of fullsized
+- Fix up default style(s) a bit
+- CLI recursive scanning/generating tool.
+- Have output returned as variables (array or class?) instead of a chunk of html.
+- Hit logging (?)
+
+BUGS:
+- Fix resize logic
+- Fix favicon.ico either via mod_rewrite, or html linkage to point to one in the root.
+ie: "GET /gallery/browse/favicon.ico HTTP/1.1" 200 873
+It's attempted to be gotten for _every_ folder/image view. It's pretty annoying.
