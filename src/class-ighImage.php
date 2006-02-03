@@ -103,20 +103,24 @@ class Image extends Folders {
 	public function getNextImageHTML() {
 		global $ighView, $ighThumb;
 		$key = array_search($this->imageFilename, $this->thumbs);
-		$img = "<a href=\"" . $ighView . $this->imageStart . $this->thumbs[$key+1] . "\">";
-		$img .= "<img src=\"" .$ighThumb . $this->imageStart . $this->thumbs[$key+1] . "\"
-			alt=\"".$this->thumbs[$key+1]."\"/>";
-		$img .= "</a>";
+		if (array_key_exists($key+1, $this->thumbs)) {
+			$img = "<a href=\"" . $ighView . $this->imageStart . $this->thumbs[$key+1] . "\">";
+			$img .= "<img src=\"" .$ighThumb . $this->imageStart . $this->thumbs[$key+1] . "\"
+				alt=\"".$this->thumbs[$key+1]."\"/>";
+			$img .= "</a>"; 
+		}
 		return $img;
 	}
 
 	public function getPrevImageHTML() {
 		global $ighView, $ighThumb;
 		$key = array_search($this->imageFilename, $this->thumbs);
-		$img = "<a href=\"" . $ighView . $this->imageStart . $this->thumbs[$key-1] . "\">";
-		$img .= "<img src=\"" .$ighThumb . $this->imageStart . $this->thumbs[$key-1] . "\"
-			alt=\"".$this->thumbs[$key-1]."\"/>";
-		$img .= "</a>";
+		if (array_key_exists($key-1, $this->thumbs)) {
+			$img = "<a href=\"" . $ighView . $this->imageStart . $this->thumbs[$key-1] . "\">";
+			$img .= "<img src=\"" .$ighThumb . $this->imageStart . $this->thumbs[$key-1] . "\"
+				alt=\"".$this->thumbs[$key-1]."\"/>";
+			$img .= "</a>";
+		}
 		return $img;
 	}
 }
