@@ -1,6 +1,9 @@
 #ighFolders {
-	position: absolute;
-	left: 10px;
+
+}
+#ighFolders li {
+	display: inline;
+	padding-right: 2em;
 }
 
 #ighThumbs ul {
@@ -34,5 +37,5 @@
 }
 #ighCrumbs li {
 	display: inline;
-	padding-right: 5px;
+	padding-right: 2em;
 }

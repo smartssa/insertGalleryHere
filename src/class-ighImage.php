@@ -3,6 +3,8 @@
 	The image handler class.
 */
 
+require_once "class-ighFolder.php";
+
 class Image extends Folders {
 
 	public $activeImage;	// full path of image
@@ -95,7 +97,7 @@ class Image extends Folders {
 	public function getImageHTML() {
 		global $ighImage;
 
-		$img = "<img src=\"". $ighImage . $this->imageUrl . "\" ".$this->imageAttributes."
+		$img = "<img src=\"". $ighImage . $this->imageUrl . "\" 
 			alt=\"".$this->imageFilename."\"/>";
 		return $img;
 	}

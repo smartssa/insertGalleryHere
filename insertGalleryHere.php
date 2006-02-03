@@ -107,6 +107,11 @@ switch ($action) {
 	/* uri: image/filename.jpg/gif/png */
 	case "image":
 		if (dateCompare(strtotime($headers['If-Modified-Since']), filemtime($filename))) {
+			// Check for Resizing
+			if ($Image->imageWidth > $ighMaxWidth || $Image->imageHeight > $ighMaxHeight)
+			{ // change the filename to the resized version
+				$filename = $resize;
+			}
 			header("Last-Modified: " . gmdate("D, d M Y H:i:s", filemtime($filename)) . " GMT");
 			header("Content-Type: " . $filetype);
 			header("Content-Length: " . filesize($filename));
