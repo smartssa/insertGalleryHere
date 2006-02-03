@@ -9,7 +9,7 @@ $ighVersion = "0.1";
 
 // Where's the images (include trailing / on all paths)?
 $ighLocalImages = "/var/www/x/igh/photos/";
-$ighWebUrl = "images/";
+
 // This must be writable by your web server.
 $ighCacheThumbs = "/var/www/x/igh/cache/thumbs/";
 $ighCacheResize = "/var/www/x/igh/cache/resize/";

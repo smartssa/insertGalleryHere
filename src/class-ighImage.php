@@ -80,7 +80,7 @@ class Image extends Folders {
 	}
 
 	function checkResize() {
-		global $ignCacheResize, $ighMaxWidth, $ighMaxHeight;
+		global $ighCacheResize, $ighMaxWidth, $ighMaxHeight;
 		// if resize is required
 		if (file_exists($ighCacheResize . $this->imageThumb) ) {
 			// if resize is out of date
