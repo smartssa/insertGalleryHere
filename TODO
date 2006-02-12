@@ -21,6 +21,3 @@ ENHANCMENTS:
 BUGS/ISSUES:
 - Resized image quality isn't so hot.
 	- Resized images should be stored in their original format
-- After playing around with it, the current url structure isn't gonna
-	be so hot.  I think every url needs to be [action]/_/full/path/to/image.jpg
-	where the _ can be a subaction (ex: resized/fullsize) if necessary.

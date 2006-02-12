@@ -25,11 +25,14 @@ require_once "src/class-ighImage.php";
 /* Process $_GET['ighRequest'] */
 if ($_GET['ighRequest'] == "") {
 	$action = "browse"; 
-	$param = "";
+	$param = "_";
 } else  {
 	list ($action, $param, $fullfilepath) = explode ("/", $_GET['ighRequest'], 3);
 }
 
+if ($param == "")
+	$param = "_";
+	
 if ($action == "thumbnail" || $action == "image") {
 	$headers = apache_request_headers();
 	if ($headers['If-Modified-Since'] == "") // set this date in the past to force reloads properly
@@ -46,7 +49,7 @@ if ($action == "thumbnail" || $action == "image") {
 /* 4 output modes */
 switch ($action) {
 /* browser */
-	/* uri: browse/_/dir/ */
+	/* uri: browse/[PAGE#|_]/dir/ */
 	default:
 	case "browse":
 		$Folders = new Folders($fullfilepath, $ighLocalImages, $param);
@@ -61,7 +64,7 @@ switch ($action) {
 	break;
 
 /* single image */
-	/* uri: view/imagename/ */
+	/* uri: view/[_|fullsize]/imagename/ */
 	case "view":
 		$Image = new Image($ighLocalImages, $fullfilepath, $param);
 
@@ -75,7 +78,7 @@ switch ($action) {
 	break;
 
 /* thumbnail image */
-	/* uri: thumbnail/imagename/ */
+	/* uri: thumbnail/_/imagename/ */
 	case "thumbnail":
 		if (dateCompare(strtotime($headers['If-Modified-Since']), filemtime($thumb))) {
 			header("Last-Modified: " . gmdate("D, d M Y H:i:s", filemtime($thumb)) . " GMT");
@@ -91,7 +94,7 @@ switch ($action) {
 	break;
 
 /* the actual image */
-	/* uri: image/filename.jpg/gif/png */
+	/* uri: image/[_|fullsize]/filename.jpg/gif/png */
 	case "image":
 		if (dateCompare(strtotime($headers['If-Modified-Since']), filemtime($filename))) {
 			// Check for Resizing
