@@ -6,20 +6,21 @@ SHITLIST:
 ENHANCMENTS:
 - Debugging/Error output
 - Allow viewability of fullsized
-- Resized images should be stored in their original format
 - Add a variable to set SquareThumbs or Normal Thumbs
 - Fix up default style(s) a bit
 - Preserve existing query strings (for embedded)
 - HTTP_REFERER checking
-- Image throttling (limit # of GET's per second or something)
-- After playing around with it, the current url structure isn't gonna
-	be so hot.  I think every url needs to be [action]/_/full/path/to/image.jpg
-	where the _ can be a subaction (ex: resized/fullsize) if necessary.
 - Paging for directories with lots of images
 - Add checks for writable cache directories.
 - CLI recursive scanning/generating tool (not necessary for generation, but possibly for cleanup?)
 - Have output returned as variables (array or class?) instead of a chunk of html.
-- Hit counter/logging (?)
+- Watermarking
+- Hit counter/logging (?) - requires database
+- Image throttling (limit # of GET's per second or something) - requires database
 
 BUGS/ISSUES:
 - Resized image quality isn't so hot.
+	- Resized images should be stored in their original format
+- After playing around with it, the current url structure isn't gonna
+	be so hot.  I think every url needs to be [action]/_/full/path/to/image.jpg
+	where the _ can be a subaction (ex: resized/fullsize) if necessary.

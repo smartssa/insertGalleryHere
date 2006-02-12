@@ -17,22 +17,17 @@ class Image extends Folders {
 	public $imageThumb;	// thumbnail hash (for thumb and resize)
 	public $imageStart;	// start path
 
-	function __construct($start, $LocalPath, $extra) {
+	function __construct($LocalPath, $fullfilepath, $params) {
 		// Construct!
-		if ($start == "") {
-			parent::__construct("/", $LocalPath);
-			$this->imageStart = "_/";
-		} else {
-			$full = urldecode($start . (dirname($extra) == "." ? "" : dirname($extra)."/"));
-			parent::__construct($full, $LocalPath);
-			$this->imageStart = $full;
-		}
-		$this->activeImage = $LocalPath . $start . $extra;
-		if ($start == "")
-			$start = "_/";
+
+		$full = urldecode($start . (dirname($fullfilepath) == "." ? "" : dirname($fullfilepath)."/"));
+		parent::__construct($full, $LocalPath, $params);
+
+		$this->imageStart = $full;
+		$this->activeImage = $LocalPath . $fullfilepath;
 
 		$this->imageFilename = basename($this->activeImage);
-		$this->imageUrl = $start . $extra;
+		$this->imageUrl = $start . $fullfilepath;
 		$this->imageThumb = md5($this->activeImage); // all thumbnails will be jpeg
 		$this->loadDetails();
 		$this->checkThumb();
@@ -97,7 +92,7 @@ class Image extends Folders {
 	public function getImageHTML() {
 		global $ighImage;
 
-		$img = "<img src=\"". $ighImage . $this->imageUrl . "\" 
+		$img = "<img src=\"". $ighImage . $this->params . "/" . $this->imageUrl . "\" 
 			alt=\"".$this->imageFilename."\"/>";
 		return $img;
 	}
@@ -106,8 +101,8 @@ class Image extends Folders {
 		global $ighView, $ighThumb;
 		$key = array_search($this->imageFilename, $this->thumbs);
 		if (array_key_exists($key+1, $this->thumbs)) {
-			$img = "<a href=\"" . $ighView . $this->imageStart . $this->thumbs[$key+1] . "\">";
-			$img .= "<img src=\"" .$ighThumb . $this->imageStart . $this->thumbs[$key+1] . "\"
+			$img = "<a href=\"" . $ighView . $this->params . "/" . $this->imageStart . $this->thumbs[$key+1] . "\">";
+			$img .= "<img src=\"" .$ighThumb . $this->params . "/" . $this->imageStart . $this->thumbs[$key+1] . "\"
 				alt=\"".$this->thumbs[$key+1]."\"/>";
 			$img .= "</a>"; 
 		}
@@ -118,8 +113,8 @@ class Image extends Folders {
 		global $ighView, $ighThumb;
 		$key = array_search($this->imageFilename, $this->thumbs);
 		if (array_key_exists($key-1, $this->thumbs)) {
-			$img = "<a href=\"" . $ighView . $this->imageStart . $this->thumbs[$key-1] . "\">";
-			$img .= "<img src=\"" .$ighThumb . $this->imageStart . $this->thumbs[$key-1] . "\"
+			$img = "<a href=\"" . $ighView . $this->params . "/" . $this->imageStart . $this->thumbs[$key-1] . "\">";
+			$img .= "<img src=\"" .$ighThumb . $this->params . "/" . $this->imageStart . $this->thumbs[$key-1] . "\"
 				alt=\"".$this->thumbs[$key-1]."\"/>";
 			$img .= "</a>";
 		}

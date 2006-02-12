@@ -15,49 +15,41 @@
 	script all other files will just die.
 */
 
+/* Required sources */
 require_once "src/ighVariables.php";
 require_once "src/ighFunctions.php";
-
-/* Process $_GET['ighRequest'] */
-if ($_GET['ighRequest'] == "browse") {
-	$action = "browse"; 
-	$param = "";
-} else  {
-	list ($action, $param, $extra) = explode ("/", $_GET['ighRequest'], 3);
-}
-
 /* My Classes */
 require_once "src/class-ighFolder.php";
 require_once "src/class-ighImage.php";
+
+/* Process $_GET['ighRequest'] */
+if ($_GET['ighRequest'] == "") {
+	$action = "browse"; 
+	$param = "";
+} else  {
+	list ($action, $param, $fullfilepath) = explode ("/", $_GET['ighRequest'], 3);
+}
 
 if ($action == "thumbnail" || $action == "image") {
 	$headers = apache_request_headers();
 	if ($headers['If-Modified-Since'] == "") // set this date in the past to force reloads properly
 		$headers['If-Modified-Since'] = gmdate("D, d M Y H:i:s", 0) . " GMT";
 
-	if ($param == "_") {
-		$param = "";
-	} else {
-		$param = $param . "/";
-	}
-	$filename = $ighLocalImages . $param . $extra;
+	$filename = $ighLocalImages . $fullfilepath;
 	$thumb = $ighCacheThumbs . md5($filename);
 	$resize = $ighCacheResize . md5($filename);
 	$filetype = mime_content_type($filename);
 
-	$Image = new Image($param, $ighLocalImages, $extra);
+	$Image = new Image($ighLocalImages, $fullfilepath, $param);
 }
 
 /* 4 output modes */
 switch ($action) {
 /* browser */
-	/* uri: browse/dir/ */
+	/* uri: browse/_/dir/ */
 	default:
 	case "browse":
-		if ($param != "")
-			$param .= "/";
-
-		$Folders = new Folders($param . $extra, $ighLocalImages);
+		$Folders = new Folders($fullfilepath, $ighLocalImages, $param);
 
 		$ighFolders = $Folders->listFolders();
 		$ighThumbs = $Folders->listThumbs();
@@ -71,12 +63,7 @@ switch ($action) {
 /* single image */
 	/* uri: view/imagename/ */
 	case "view":
-		if ($param == "_")
-			$param = "";
-		else
-			$param .= "/";
-
-		$Image = new Image($param, $ighLocalImages, $extra);
+		$Image = new Image($ighLocalImages, $fullfilepath, $param);
 
 		$ighImage_next = $Image->getNextImageHTML();
 		$ighImage_full = $Image->getImageHTML();

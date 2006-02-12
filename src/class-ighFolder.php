@@ -14,11 +14,21 @@ class Folders {
 	public $folders = array();
 	public $thumbs = array();
 	public $ignoreFiles = array('.', '..', '.svn');
-
-	function __construct($start, $root) {
+	public $webFolder = ""; // the web friendly folder...
+	public $params = "";
+	
+	function __construct($start, $root, $params) {
 		$this->activeFolder = urldecode($root . $start);
 		$this->start = $start;
 		$this->scanFolder();
+		$this->params = $params;
+		
+		if ($this->start == "") {
+			// this underscore signifies the 'root'
+			$this->webFolder = $params . "/";
+		} else {
+			$this->webFolder = $params . "/" . $this->start;
+		}
 	}
 
 	function __destruct() {
@@ -54,7 +64,7 @@ class Folders {
 		global $ighBrowse;
 		$fl = "<ul>";
 		foreach ($this->folders as $key => $folder) {
-			$fl .= "<li><a href=\"". $ighBrowse . $this->start . 
+			$fl .= "<li><a href=\"". $ighBrowse . $this->webFolder . 
 				$folder . "/\">" . $folder. "</a></li>";
 		}
 		// fill up the unordered list.
@@ -68,17 +78,11 @@ class Folders {
 
 	public function listThumbs() {
 		global $ighThumb, $ighView, $ighThumbHeight, $ighThumbWidth;
-		if ($this->start == "") {
-			// this underscore signifies the 'root'
-			$folder = "_/";
-		} else {
-			$folder = $this->start;
-		}
 		$fl = "<ul>";
 		// filler up with thumbs
 		foreach ($this->thumbs as $key => $thumb) {
-			$fl .= "<li><a href=\"" . $ighView . $folder . $thumb . "\">
-				<img src=\"" . $ighThumb . $folder . $thumb 
+			$fl .= "<li><a href=\"" . $ighView . $this->webFolder . $thumb . "\">
+				<img src=\"" . $ighThumb . $this->webFolder . $thumb 
 				. "\" alt=\"".$thumb."\"/></a></li>";
 		}
 		$fl .= "</ul>";
@@ -94,7 +98,7 @@ class Folders {
 		$previous = "";
 		foreach ($folder as $key=>$data) {
 			if ($data != "") {
-			$cr .= "<li><a href=\"". $ighBrowse .$previous. $data . "/\">" . $data . "</a></li>";
+			$cr .= "<li><a href=\"". $ighBrowse . $this->params . "/" . $previous . $data . "/\">" . $data . "</a></li>";
 			$previous .= $data ."/";
 			}
 		}

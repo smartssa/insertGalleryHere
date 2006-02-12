@@ -5,10 +5,13 @@
 */
 
 /* funcationality variables */
-$ighVersion = "0.1";
+$ighVersion = "0.2";
 
 // Where's the images (include trailing / on all paths)?
 $ighLocalImages = "/var/www/x/igh/photos/";
+
+// page limit, # of images per page in browse mode
+$ighPageLimit = "36";
 
 // This must be writable by your web server.
 $ighCacheThumbs = "/var/www/x/igh/cache/thumbs/";
@@ -18,9 +21,9 @@ $ighCacheResize = "/var/www/x/igh/cache/resize/";
 $ighThumbWidth 	= "120";
 $ighThumbHeight	= "120";
 
-// Resize stuff
+// Resize stuff -- these are boundaries, they will be resized/scalled according to their original aspect.
 $ighMaxWidth 	= "600";
-$ighMaxHeight 	= "400";
+$ighMaxHeight 	= "800";
 
 // this can be any url; if you are embedding set it to where it's embedded.
 $ighHome = "/"; 
