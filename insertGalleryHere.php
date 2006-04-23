@@ -14,6 +14,9 @@
  	insertGalleryHere.php is the _only_ entry point for this 
 	script all other files will just die.
 */
+/* Timer Function */
+$timeparts = explode(' ',microtime());
+$starttime = $timeparts[1].substr($timeparts[0],1);
 
 /* Required sources */
 require_once "src/ighVariables.php";
@@ -122,6 +125,12 @@ if ($insertGalleryHereEmbed) { // wrap up the output if we're not embedded
 	require_once "template/ighWrapper.tpl";
 	$ighOutput = $body;
 }
+/* Timer Finish */
+$timeparts = explode(" ",microtime());
+$endtime = $timeparts[1].substr($timeparts[0],1);
+
+$output_time = "Time for this page: ". number_format(bcsub($endtime,$starttime,6),3) . " s ";
+$ighOutput .= $output_time;
 
 /* Spew! Thats it. */
 print $ighOutput;
