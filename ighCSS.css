@@ -23,7 +23,7 @@
 	margin-left: 15%;
 }
 
-#ighImage img {
+#ighImage img, #ighPrev img, #ighNext img {
 	border: 1px solid black;
 	padding: 3px;
 }

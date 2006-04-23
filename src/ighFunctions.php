@@ -9,7 +9,7 @@
 	$dest str - the destination file (full path)
 	$height int - new height
 	$width int - new width
-	$thumb bool - whether or not to prettyify the resize
+	$thumb bool - whether or not to use the "square on centre" thumbnail feature.
 */
 
 function imageResize($file, $dest, $height, $width, $thumb = FALSE) {
